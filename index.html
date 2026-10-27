@@ -28,7 +28,9 @@
       <div id="combo-points"></div>
       <div id="combo-name"></div>
     </div>
+    <div id="timer">2:00</div>
     <button id="sound-btn" aria-label="소리 켜기/끄기">♪</button>
+    <button id="end-btn" aria-label="그만 타기">■</button>
   </div>
 
   <div id="floaters"></div>
@@ -36,25 +38,31 @@
 
   <div id="start" class="panel">
     <div class="logo big"><span>CURB</span><span>RUSH</span></div>
-    <p class="tagline">도시의 턱, 계단, 난간을 전부 타고 넘어라</p>
+    <p class="tagline">도로, 광장, 공원 내리막, 터널을 자유롭게 타며 콤보를 쌓아라</p>
     <div class="controls">
       <div class="kb"><b>키보드</b></div>
-      <div class="kb">← → 차선 이동 · ↑ / Space 올리 · ↓ 감속</div>
-      <div class="kb">공중에서 Z 킥플립 · X 셔빗 · C 360</div>
+      <div class="kb">← → 방향 · ↑ 밀기(가속) · ↓ 브레이크 · Space 올리</div>
+      <div class="kb">공중에서 Z 킥플립 · X 셔빗 · Z+X 360 플립 · ← → 회전</div>
       <div class="touch"><b>터치</b></div>
-      <div class="touch">화면 좌/우 탭 차선 이동 · 위로 스와이프 올리 · 아래로 감속</div>
-      <div class="touch">공중에서 ←/→ 스와이프 트릭 · ↑ 스와이프 360</div>
+      <div class="touch">왼쪽을 누른 채 좌우로 끌어 방향 · 속도는 자동</div>
+      <div class="touch">오른쪽 탭/위 스와이프 올리 · 공중에서 ←/→ 스와이프 트릭</div>
     </div>
-    <button id="start-btn" class="big-btn">START</button>
-    <p class="hint">계단은 굴러 내려가면 넘어집니다. 뛰어넘거나 난간을 타세요.</p>
+    <div class="mode-btns">
+      <button id="session-btn" class="big-btn">2분 세션</button>
+      <button id="free-btn" class="big-btn ghost">프리 라이드</button>
+    </div>
+    <p class="hint">레일·턱 위로 내려오면 자동 그라인드. 차에 부딪히지만 않으면 웬만해선 안 넘어집니다.</p>
   </div>
 
   <div id="over" class="panel hidden">
-    <div class="wasted">BAILED</div>
+    <div class="wasted" id="over-title">SESSION OVER</div>
     <div id="over-reason"></div>
     <div class="final"><span>SCORE</span><b id="final-score">0</b></div>
     <div class="final"><span>BEST</span><b id="best-score">0</b></div>
-    <button id="restart-btn" class="big-btn">다시 타기</button>
+    <div class="mode-btns">
+      <button id="restart-btn" class="big-btn">다시 타기</button>
+      <button id="menu-btn" class="big-btn ghost">처음으로</button>
+    </div>
   </div>
 
   <div id="rotate-hint">가로로 돌리면 길이 더 넓게 보여요</div>

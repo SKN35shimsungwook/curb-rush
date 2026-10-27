@@ -139,7 +139,8 @@ export class Skater {
     this.body.add(this.torso);
 
     // 자세 값(목표값으로 부드럽게 따라감)
-    this.pose = { crouch: 0.25, arms: 0.35, lean: 0.12, tuck: 0 };
+    this.pose = { crouch: 0.25, arms: 0.35, lean: 0.12, tuck: 0, push: 0 };
+    this.pushPhase = 0;
     this.target = { ...this.pose };
     this.time = 0;
     this._hip = [new THREE.Vector3(), new THREE.Vector3()];
@@ -155,24 +156,41 @@ export class Skater {
       air: { crouch: 0.6, arms: 0.7, lean: 0.2, tuck: 0.12 },
       grind: { crouch: 0.4, arms: 1.0, lean: 0.05, tuck: 0 },
       land: { crouch: 0.95, arms: 0.55, lean: 0.3, tuck: 0 },
+      stumble: { crouch: 0.9, arms: 1.1, lean: -0.15, tuck: 0 },
     }[name];
     Object.assign(this.target, P);
   }
 
+  // 뒷발로 땅을 차서 미는 동작(0~1)
+  setPush(w) { this.target.push = w; }
+
   update(dt) {
     this.time += dt;
     const k = Math.min(1, dt * 14);
-    for (const key in this.pose) this.pose[key] += (this.target[key] - this.pose[key]) * k;
+    for (const key in this.pose) this.pose[key] += ((this.target[key] ?? 0) - this.pose[key]) * k;
+    if (this.pose.push > 0.02) this.pushPhase = (this.pushPhase + dt * 1.6) % 1;
+    else this.pushPhase = 0;
     this.apply();
   }
 
   apply() {
     const { crouch, arms, lean, tuck } = this.pose;
-    const hipY = 0.9 - 0.25 * crouch;
+    const push = this.pose.push || 0;
+    const hipY = 0.9 - 0.25 * crouch * (1 - push * 0.5);
     const feetZ = [-0.2, 0.19];
+    // 미는 발 궤적: 땅에 대고 뒤로 긁은 뒤 들어서 앞으로 가져온다
+    const t = this.pushPhase || 0;
+    let pz, py;
+    if (t < 0.55) { pz = -0.05 + 0.55 * (t / 0.55); py = -0.11; }
+    else { const u = (t - 0.55) / 0.45; pz = 0.5 - 0.55 * u; py = -0.11 + 0.2 * Math.sin(u * Math.PI); }
     for (let i = 0; i < 2; i++) {
       this._hip[i].set(-0.03, hipY, i === 0 ? -0.1 : 0.1);
       this._ankle[i].set(0, 0.075 + tuck, feetZ[i]);
+      if (i === 1 && push > 0) {
+        this._ankle[i].x += (-0.24 - this._ankle[i].x) * push;
+        this._ankle[i].y += (py - this._ankle[i].y) * push;
+        this._ankle[i].z += (pz - this._ankle[i].z) * push;
+      }
       knee(this._hip[i], this._ankle[i], 0.46, this._knee[i]);
       setLimb(this.thighs[i], this._hip[i], this._knee[i]);
       setLimb(this.shins[i], this._knee[i], this._ankle[i]);

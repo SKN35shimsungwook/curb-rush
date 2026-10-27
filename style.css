@@ -44,6 +44,17 @@ html, body {
   position: absolute; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%;
   border: 2px solid #fff; background: rgba(0,0,0,.35); color: #fff; font-size: 20px; cursor: pointer;
 }
+#end-btn {
+  position: absolute; right: 68px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid #fff; background: rgba(0,0,0,.35); color: #fff; font-size: 16px; cursor: pointer;
+}
+#timer {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  font-size: 30px; letter-spacing: 1px; text-shadow: 0 3px 0 #000; font-variant-numeric: tabular-nums;
+}
+#timer.low { color: #ff5a4a; }
+.mode-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.big-btn.ghost { background: transparent; color: #f2c230; border: 3px solid #f2c230; box-shadow: none; }
 #sound-btn.off { opacity: .45; text-decoration: line-through; }
 
 #floaters { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
@@ -80,7 +91,7 @@ html, body {
   box-shadow: 4px 4px 0 #000; cursor: pointer;
 }
 .big-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
-.wasted { font-size: 56px; color: #e33; letter-spacing: 4px; text-shadow: 0 4px 0 #000; transform: rotate(-3deg); }
+.wasted { font-size: 46px; color: #e33; letter-spacing: 4px; text-shadow: 0 4px 0 #000; transform: rotate(-3deg); }
 #over-reason { font-family: "Segoe UI", "Malgun Gothic", sans-serif; color: #ccc; margin: 6px 0 16px; }
 .final { display: flex; justify-content: space-between; max-width: 260px; margin: 6px auto; font-size: 22px; }
 .final span { color: #aaa; }
@@ -109,6 +120,8 @@ body.playing #rotate-hint { display: none; }
   .logo { font-size: 14px; top: 10px; left: 10px; }
   #score { font-size: 30px; }
   .logo.big { font-size: 38px; }
-  .wasted { font-size: 40px; }
+  .wasted { font-size: 32px; }
+  #timer { font-size: 22px; }
+  .big-btn { min-width: 140px; font-size: 20px; }
   #combo-points { font-size: 26px; }
 }
