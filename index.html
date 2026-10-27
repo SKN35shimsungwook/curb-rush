@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#1b1c1e" />
+  <title>Curb Rush</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="logo"><span>CURB</span><span>RUSH</span></div>
+    <div class="score-box">
+      <div id="score">0</div>
+      <div id="distance">0 m</div>
+    </div>
+    <div id="combo">
+      <div id="combo-points"></div>
+      <div id="combo-name"></div>
+    </div>
+    <button id="sound-btn" aria-label="소리 켜기/끄기">♪</button>
+  </div>
+
+  <div id="floaters"></div>
+  <div id="flash"></div>
+
+  <div id="start" class="panel">
+    <div class="logo big"><span>CURB</span><span>RUSH</span></div>
+    <p class="tagline">도시의 턱, 계단, 난간을 전부 타고 넘어라</p>
+    <div class="controls">
+      <div class="kb"><b>키보드</b></div>
+      <div class="kb">← → 차선 이동 · ↑ / Space 올리 · ↓ 감속</div>
+      <div class="kb">공중에서 Z 킥플립 · X 셔빗 · C 360</div>
+      <div class="touch"><b>터치</b></div>
+      <div class="touch">화면 좌/우 탭 차선 이동 · 위로 스와이프 올리 · 아래로 감속</div>
+      <div class="touch">공중에서 ←/→ 스와이프 트릭 · ↑ 스와이프 360</div>
+    </div>
+    <button id="start-btn" class="big-btn">START</button>
+    <p class="hint">계단은 굴러 내려가면 넘어집니다. 뛰어넘거나 난간을 타세요.</p>
+  </div>
+
+  <div id="over" class="panel hidden">
+    <div class="wasted">BAILED</div>
+    <div id="over-reason"></div>
+    <div class="final"><span>SCORE</span><b id="final-score">0</b></div>
+    <div class="final"><span>BEST</span><b id="best-score">0</b></div>
+    <button id="restart-btn" class="big-btn">다시 타기</button>
+  </div>
+
+  <div id="rotate-hint">가로로 돌리면 길이 더 넓게 보여요</div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
